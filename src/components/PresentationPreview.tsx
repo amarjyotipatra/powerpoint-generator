@@ -37,27 +37,37 @@ const PresentationPreview = ({ slides }: PresentationPreviewProps) => {
           </div>
           
           <div className="p-3 sm:p-6">
-            {slide.title && (
-              <h3 className="text-base sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4 pb-2 border-b-2 border-blue-500">
-                {slide.title}
-              </h3>
-            )}
-            
-            {slide.content && slide.content.length > 0 && (
-              <ul className="space-y-2 sm:space-y-3">
-                {slide.content.map((item, itemIndex) => (
-                  <li key={itemIndex} className="flex items-start gap-2 sm:gap-3">
-                    <span className="text-blue-500 mt-1 sm:mt-1.5 flex-shrink-0">
-                      <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                    </span>
-                    <p className="text-sm sm:text-base text-gray-700 leading-relaxed flex-1">
-                      {item}
-                    </p>
-                  </li>
-                ))}
-              </ul>
+            {slide.previewImage ? (
+              <img
+                src={slide.previewImage}
+                alt={`Slide ${index + 1} Preview`}
+                className="w-full h-auto rounded-md border border-gray-300"
+              />
+            ) : (
+              <>
+                {slide.title && (
+                  <h3 className="text-base sm:text-xl font-bold text-gray-800 mb-3 sm:mb-4 pb-2 border-b-2 border-blue-500">
+                    {slide.title}
+                  </h3>
+                )}
+                
+                {slide.content && slide.content.length > 0 && (
+                  <ul className="space-y-2 sm:space-y-3">
+                    {slide.content.map((item, itemIndex) => (
+                      <li key={itemIndex} className="flex items-start gap-2 sm:gap-3">
+                        <span className="text-blue-500 mt-1 sm:mt-1.5 flex-shrink-0">
+                          <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                          </svg>
+                        </span>
+                        <p className="text-sm sm:text-base text-gray-700 leading-relaxed flex-1">
+                          {item}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </>
             )}
           </div>
         </div>

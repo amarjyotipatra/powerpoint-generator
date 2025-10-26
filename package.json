@@ -13,6 +13,7 @@
     "autoprefixer": "^10.4.21",
     "next": "15.0.3",
     "pptxgenjs": "^3.12.0",
+    "puppeteer": "^24.26.1",
     "react": "^18",
     "react-dom": "^18"
   },
