@@ -173,7 +173,7 @@ const ChatInterface = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-6 h-[calc(100vh-8rem)] sm:h-[calc(100vh-12rem)]">
           {/* Presentation Preview Section - Shows first on mobile */}
-          <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg flex flex-col overflow-hidden border border-gray-100 order-2 lg:order-2">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg flex flex-col overflow-hidden border border-gray-100 order-1 lg:order-2">
             <div className="p-3 sm:p-6 border-b border-gray-200 bg-gradient-to-r from-green-500 to-teal-500 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
               <div>
                 <h2 className="text-lg sm:text-xl font-bold text-white">
@@ -201,7 +201,7 @@ const ChatInterface = () => {
           </div>
 
           {/* Chat Section - Shows second on mobile */}
-          <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg flex flex-col overflow-hidden border border-gray-100 order-1 lg:order-1">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg flex flex-col overflow-hidden border border-gray-100 order-2 lg:order-1">
             <div className="p-3 sm:p-6 border-b border-gray-200 bg-gradient-to-r from-blue-500 to-purple-500">
               <h2 className="text-lg sm:text-xl font-bold text-white">Chat with AI</h2>
               <p className="text-blue-100 text-xs sm:text-sm">
