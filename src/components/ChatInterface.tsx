@@ -160,19 +160,25 @@ const ChatInterface = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-2 sm:px-4 py-4 sm:py-8">
         {/* Header */}
-        <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">AI PowerPoint Generator</h1>
-          <p className="text-gray-600">Create stunning presentations with AI - Just describe what you need!</p>
+        <div className="text-center mb-4 sm:mb-8 px-2">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-800 mb-1 sm:mb-2">
+            AI PowerPoint Generator
+          </h1>
+          <p className="text-sm sm:text-base text-gray-600">
+            Create stunning presentations with AI - Just describe what you need!
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 h-[calc(100vh-12rem)]">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-6 h-[calc(100vh-8rem)] sm:h-[calc(100vh-12rem)]">
           {/* Chat Section */}
-          <div className="bg-white rounded-2xl shadow-lg flex flex-col overflow-hidden border border-gray-100">
-            <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-blue-500 to-purple-500">
-              <h2 className="text-xl font-bold text-white">Chat with AI</h2>
-              <p className="text-blue-100 text-sm">Describe your presentation and I&apos;ll create it for you</p>
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg flex flex-col overflow-hidden border border-gray-100">
+            <div className="p-3 sm:p-6 border-b border-gray-200 bg-gradient-to-r from-blue-500 to-purple-500">
+              <h2 className="text-lg sm:text-xl font-bold text-white">Chat with AI</h2>
+              <p className="text-blue-100 text-xs sm:text-sm">
+                Describe your presentation and I&apos;ll create it for you
+              </p>
             </div>
             
             <div className="flex-1 overflow-y-auto">
@@ -180,35 +186,35 @@ const ChatInterface = () => {
               <div ref={messagesEndRef} />
             </div>
             
-            <div className="p-6 border-t border-gray-200 bg-gray-50">
+            <div className="p-3 sm:p-6 border-t border-gray-200 bg-gray-50">
               <MessageInput onSend={handleSendMessage} disabled={isLoading} />
             </div>
           </div>
 
           {/* Presentation Preview Section */}
-          <div className="bg-white rounded-2xl shadow-lg flex flex-col overflow-hidden border border-gray-100">
-            <div className="p-6 border-b border-gray-200 bg-gradient-to-r from-green-500 to-teal-500 flex justify-between items-center">
+          <div className="bg-white rounded-xl sm:rounded-2xl shadow-lg flex flex-col overflow-hidden border border-gray-100">
+            <div className="p-3 sm:p-6 border-b border-gray-200 bg-gradient-to-r from-green-500 to-teal-500 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2 sm:gap-0">
               <div>
-                <h2 className="text-xl font-bold text-white">
+                <h2 className="text-lg sm:text-xl font-bold text-white">
                   Presentation Preview
                 </h2>
-                <p className="text-green-100 text-sm">
+                <p className="text-green-100 text-xs sm:text-sm">
                   {currentPresentation.length} {currentPresentation.length === 1 ? 'slide' : 'slides'} generated
                 </p>
               </div>
               {currentPresentation.length > 0 && (
                 <button
                   onClick={handleDownloadPresentation}
-                  className="bg-white text-green-600 px-6 py-2.5 rounded-lg hover:bg-gray-100 transition-all font-semibold shadow-md flex items-center gap-2"
+                  className="bg-white text-green-600 px-3 sm:px-6 py-2 sm:py-2.5 rounded-lg hover:bg-gray-100 transition-all font-semibold shadow-md flex items-center gap-1 sm:gap-2 text-sm sm:text-base w-full sm:w-auto justify-center"
                 >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
                   </svg>
                   Download PPTX
                 </button>
               )}
             </div>
-            <div className="flex-1 overflow-y-auto p-6 bg-gray-50">
+            <div className="flex-1 overflow-y-auto p-3 sm:p-6 bg-gray-50">
               <PresentationPreview slides={currentPresentation} />
             </div>
           </div>
