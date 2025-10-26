@@ -40,12 +40,7 @@ cd Powerpoint_Application
 npm install
 ```
 
-### 2. Configure API Key
-
-Create a `.env.local` file in the root directory:
-
-
-### 3. Start the Development Server
+### 2. Start the Development Server
 
 ```bash
 npm run dev
