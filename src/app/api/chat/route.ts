@@ -26,11 +26,16 @@ async function renderSlideToImage(slide: any, slideIndex: number): Promise<strin
   
   const gradient = gradients[slideIndex % gradients.length]
 
+  // Icon library for different slide topics
+  const icons = ['📊', '💡', '🎯', '🚀', '📈', '⚡', '🎨', '💼']
+  const slideIcon = icons[slideIndex % icons.length]
+
   // Enhanced HTML structure for the slide content with modern design
   const htmlContent = `
     <html>
       <head>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <style>
           * {
             margin: 0;
@@ -51,22 +56,54 @@ async function renderSlideToImage(slide: any, slideIndex: number): Promise<strin
           body::before {
             content: '';
             position: absolute;
-            width: 300px;
-            height: 300px;
-            background: rgba(255, 255, 255, 0.1);
+            width: 400px;
+            height: 400px;
+            background: rgba(255, 255, 255, 0.15);
             border-radius: 50%;
             top: -100px;
             right: -100px;
+            animation: float 6s ease-in-out infinite;
           }
           body::after {
             content: '';
             position: absolute;
-            width: 400px;
-            height: 400px;
-            background: rgba(255, 255, 255, 0.05);
+            width: 500px;
+            height: 500px;
+            background: rgba(255, 255, 255, 0.08);
             border-radius: 50%;
             bottom: -150px;
             left: -150px;
+            animation: float 8s ease-in-out infinite reverse;
+          }
+          @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+          }
+          .decorative-circle {
+            position: absolute;
+            border-radius: 50%;
+            opacity: 0.6;
+          }
+          .circle-1 {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.3), transparent);
+            top: 50px;
+            right: 100px;
+          }
+          .circle-2 {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, transparent, rgba(255,255,255,0.2));
+            bottom: 80px;
+            left: 120px;
+          }
+          .circle-3 {
+            width: 80px;
+            height: 80px;
+            background: rgba(255,255,255,0.25);
+            top: 200px;
+            left: 50px;
           }
           .slide-container {
             background: rgba(255, 255, 255, 0.95);
@@ -85,6 +122,14 @@ async function renderSlideToImage(slide: any, slideIndex: number): Promise<strin
             font-size: 18px;
             font-weight: 600;
             color: rgba(0, 0, 0, 0.4);
+          }
+          .slide-icon {
+            position: absolute;
+            top: 35px;
+            left: 60px;
+            font-size: 48px;
+            opacity: 0.9;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
           }
           h1 {
             font-size: ${isFirstSlide ? '72px' : '56px'};
@@ -120,15 +165,22 @@ async function renderSlideToImage(slide: any, slideIndex: number): Promise<strin
             font-weight: 500;
           }
           li::before {
-            content: '';
+            content: '✓';
             position: absolute;
             left: 0;
-            top: 8px;
-            width: 24px;
-            height: 24px;
+            top: 4px;
+            width: 28px;
+            height: 28px;
             background: ${gradient};
-            border-radius: 6px;
-            opacity: 0.8;
+            border-radius: 50%;
+            opacity: 0.9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 16px;
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
           }
           .accent-bar {
             width: 80px;
@@ -136,11 +188,31 @@ async function renderSlideToImage(slide: any, slideIndex: number): Promise<strin
             background: ${gradient};
             border-radius: 3px;
             margin-bottom: 30px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+          }
+          .visual-element {
+            position: absolute;
+            bottom: 60px;
+            right: 60px;
+            width: 120px;
+            height: 120px;
+            background: ${gradient};
+            opacity: 0.1;
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: morph 8s ease-in-out infinite;
+          }
+          @keyframes morph {
+            0%, 100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; }
+            50% { border-radius: 70% 30% 30% 70% / 70% 70% 30% 30%; }
           }
         </style>
       </head>
       <body>
+        <div class="decorative-circle circle-1"></div>
+        <div class="decorative-circle circle-2"></div>
+        <div class="decorative-circle circle-3"></div>
         <div class="slide-container">
+          <div class="slide-icon">${slideIcon}</div>
           <div class="slide-number">${String(slideIndex + 1).padStart(2, '0')}</div>
           ${!isFirstSlide ? '<div class="accent-bar"></div>' : ''}
           <h1>${slide.title}</h1>
@@ -150,6 +222,7 @@ async function renderSlideToImage(slide: any, slideIndex: number): Promise<strin
               ${slide.content.map((item: string) => `<li>${item}</li>`).join('')}
             </ul>`
           }
+          <div class="visual-element"></div>
         </div>
       </body>
     </html>
@@ -187,7 +260,13 @@ export async function POST(request: NextRequest) {
     }
 
     const genAI = new GoogleGenerativeAI(apiKey)
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' })
+    const model = genAI.getGenerativeModel({ 
+      model: 'gemini-2.5-pro',
+      generationConfig: {
+        temperature: 0.7,
+        maxOutputTokens: 2048,
+      }
+    })
 
     const prompt = existingSlides && existingSlides.length > 0 
       ? `You are a PowerPoint presentation expert. Based on the user's request: "${message}"

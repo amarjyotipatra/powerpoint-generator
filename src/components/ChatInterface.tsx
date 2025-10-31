@@ -81,15 +81,15 @@ const ChatInterface = () => {
     setIsLoading(true)
 
     try {
-      const response = await fetch('/api/chat', {
+      const response = await fetch('/powerpoint-generator/api/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           message: content,
-          existingSlides: currentPresentation.length > 0 ? currentPresentation : null
-        })
+          existingSlides: currentPresentation.length > 0 ? currentPresentation : null,
+        }),
       })
 
       const data = await response.json()
